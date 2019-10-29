@@ -3,8 +3,6 @@
     -fx-foreground-color: #353434;
 }
 
-.default-color0.chart-series-line { -fx-stroke: #2c2e4e; }
-
 .chart-vertical-zero-line {
     -fx-stroke: white;
 }

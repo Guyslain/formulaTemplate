@@ -6,6 +6,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Objects;
+
 public class MainAppLauncher extends Application {
 
   public static void main(String[] args) {
@@ -13,15 +15,15 @@ public class MainAppLauncher extends Application {
   }
 
   @Override
-  public void start(Stage stage) throws Exception {
+  public void start(Stage stage) {
     try {
-      Parent root = FXMLLoader.load(getClass().getClassLoader()
-              .getResource("MainApp.fxml"));
+      Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getClassLoader()
+              .getResource("MainApp.fxml")));
       stage.setScene(new Scene(root));
-      stage.setTitle("JavaFX Graph Example");
+      stage.setTitle("Formulas");
       stage.show();
     } catch (Exception e) {
-      System.out.print(e);
+      e.printStackTrace();
     }
   }
 }
