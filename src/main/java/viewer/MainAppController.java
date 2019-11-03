@@ -2,8 +2,8 @@ package viewer;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.chart.LineChart;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -12,37 +12,44 @@ import java.util.ResourceBundle;
 public class MainAppController implements Initializable {
 
   @FXML
-  private LineChart<Double, Double> lineGraph;
+  private AnchorPane anchorPane;
+
+  private FunctionChart functionChart;
 
   @FXML
   private VBox vBox;
 
-  private FunctionGraph functionGraph;
+  private FunctionList functionList;
 
   @Override
   public void initialize(final URL url, final ResourceBundle rb) {
-    lineGraph.setCreateSymbols(false);
-    functionGraph = new FunctionGraph(lineGraph, 10);
+    functionChart = new FunctionChart();
+    functionList = new FunctionList(functionChart);
+    anchorPane.getChildren().add(functionChart);
     addFunctionButtons();
     addClearButton();
   }
 
   private void addClearButton() {
     Button clearButton = new Button("Clear");
-    clearButton.setOnAction(event -> functionGraph.clear());
+    clearButton.setOnAction(event -> functionList.clear());
     addButton(clearButton);
   }
 
   private void addFunctionButtons() {
-    for(PlotableFunction function : functionGraph.getFunctions()){
+    for(PlottableFunction function : functionList.getFunctions()){
       addFunctionButton(function);
     }
   }
 
-  private void addFunctionButton(PlotableFunction function) {
+  private void addFunctionButton(PlottableFunction function) {
     Button button = new Button(function.toString());
     addButton(button);
-    button.setOnAction((event -> functionGraph.plot(function)));
+    button.setOnAction(event -> toggleFunction(function));
+  }
+
+  private void toggleFunction(PlottableFunction function){
+    functionList.toggleFunction(function);
   }
 
   private void addButton(Button button) {
