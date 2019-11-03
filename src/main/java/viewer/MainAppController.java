@@ -11,10 +11,9 @@ import java.util.ResourceBundle;
 
 public class MainAppController implements Initializable {
 
+  private static final int BUTTON_WIDTH = 500;
   @FXML
   private AnchorPane anchorPane;
-
-  private FunctionChart functionChart;
 
   @FXML
   private VBox vBox;
@@ -23,7 +22,7 @@ public class MainAppController implements Initializable {
 
   @Override
   public void initialize(final URL url, final ResourceBundle rb) {
-    functionChart = new FunctionChart();
+    FunctionChart functionChart = new FunctionChart();
     functionList = new FunctionList(functionChart);
     anchorPane.getChildren().add(functionChart);
     addFunctionButtons();
@@ -53,6 +52,7 @@ public class MainAppController implements Initializable {
   }
 
   private void addButton(Button button) {
+    button.setPrefWidth(BUTTON_WIDTH);
     vBox.getChildren().add(button);
   }
 }
